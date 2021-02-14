@@ -1,0 +1,57 @@
+.navbar {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  font-family: "Playfair Display", serif;
+}
+
+.navbar .homestay-logo {
+  padding: 0 30px;
+}
+
+.navbar .homestay-logo img {
+  width: 100px;
+  height: 90px;
+  border-radius: 100%;
+}
+
+.navbar .links {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.navbar .links a {
+  width: max-content;
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  font-size: 24px;
+}
+
+.navbar .links ul {
+  list-style-type: none;
+  list-style: none;
+  display: flex;
+}
+
+.navbar .links ul li {
+  padding: 0px 20px 0 10px;
+  float: left;
+}
+
+.navbar .user-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 50px 0 50px;
+}
+
+.navbar .user-area i {
+  font-size: 30px;
+  margin: 0 30px 0 30px;
+}
