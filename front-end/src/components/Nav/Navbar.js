@@ -8,8 +8,8 @@ const links = [{ name: "destination", link: "/destination" },
 { name: "image", link: "/image" },
 { name: "journey experiences", link: "/journey" }
 ]
+const source = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJqi2eeymNAgNrdvwQcDOf-6i3j_KN8eHFqw&usqp=CAU";
 
-const source = "https://st2.depositphotos.com/1561359/12101/v/600/depositphotos_121010954-stock-illustration-house-home-line-icon.jpg";
 
 class Navbar extends Component {
 
