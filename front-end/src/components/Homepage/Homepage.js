@@ -88,48 +88,44 @@ class Homepage extends Component {
             <section>
                 <div className="popular-homestays">
                     <p className="main-heading">Our most popular homestay</p>
-                    <Router>
-                        <div className="popular-homestays-body">
-                            {pupularHomestays.map(homestay =>
-                                <Link to="/">
-                                    <div className="thumbnail"></div>
-                                    <p className="homestay-name">{homestay.name}</p>
-                                    <p className="homestay-address">{homestay.address}</p>
-                                    <p className="homestay-price">{homestay.price}</p>
-                                </Link>
-                            )}
-                        </div>
-                        <div className="popular-homestays-footer">
-                            <button className="all-products-button">VIEW ALL PRODUCTS</button>
-                        </div>
-                    </Router>
+                    <div className="popular-homestays-body">
+                        {pupularHomestays.map(homestay =>
+                            <Link to="/">
+                                <div className="thumbnail"></div>
+                                <p className="homestay-name">{homestay.name}</p>
+                                <p className="homestay-address">{homestay.address}</p>
+                                <p className="homestay-price">{homestay.price}</p>
+                            </Link>
+                        )}
+                    </div>
+                    <div className="popular-homestays-footer">
+                        <button className="all-products-button">VIEW ALL PRODUCTS</button>
+                    </div>
                 </div>
                 <div className="popular-trips">
                     <p className="main-heading">Our most popular trips</p>
                     <div className="popular-trips-body">
-                        <Router>
-                            {popularTrips.map(trip =>
-                                <div className="travel-card">
-                                    <div className="top-div">
-                                        <div className="avatar">
-                                        </div>
-                                        <div className="popular-trips-comment">
-                                            <p >
-                                                <q className="quotes">
-                                                    {trip.comment}
-                                                </q>
-                                            </p>
-                                        </div>
+                        {popularTrips.map(trip =>
+                            <div className="travel-card">
+                                <div className="top-div">
+                                    <div className="avatar">
                                     </div>
-                                    <div to="/" className="card box-shadow padding-for-beige">
-                                        <div className="card-info">
-                                            <p className="card-title">{trip.title}</p>
-                                            <Link to="/">Read more</Link>
-                                        </div>
+                                    <div className="popular-trips-comment">
+                                        <p >
+                                            <q className="quotes">
+                                                {trip.comment}
+                                            </q>
+                                        </p>
                                     </div>
                                 </div>
-                            )}
-                        </Router>
+                                <div to="/" className="card box-shadow padding-for-beige">
+                                    <div className="card-info">
+                                        <p className="card-title">{trip.title}</p>
+                                        <Link to="/">Read more</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

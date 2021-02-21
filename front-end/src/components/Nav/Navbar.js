@@ -13,23 +13,24 @@ const source = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJqi2eeymN
 
 class Navbar extends Component {
 
+    redirect() {
+
+    }
 
     render() {
         return <nav className="navbar">
-            <Router>
-                <div className="homestay-logo">
-                    <img src={source} alt="logo" className="logo" />
-                </div>
-                <div className="links">
-                    <ul>
-                        {links.map(link => <li> <Link to={link.link}>{link.name}</Link> </li>)}
-                    </ul>
-                </div>
-                <div className="user-area">
-                    <i class="fas fa-bell" id="bell-icon"></i>
-                    <i class="fas fa-user-circle" id="user-icon"></i>
-                </div>
-            </Router >
+            <Link className="homestay-logo" to="/">
+                <img src={source} alt="logo" className="logo" />
+            </Link>
+            <div className="links">
+                <ul>
+                    {links.map(link => <li> <Link className={(link.name).replace(" ", "-") + "-link"} to={link.link}>{link.name}</Link> </li>)}
+                </ul>
+            </div>
+            <div className="user-area">
+                <i class="fas fa-bell" id="bell-icon"></i>
+                <i class="fas fa-user-circle" id="user-icon"></i>
+            </div>
         </nav>
     }
 }
