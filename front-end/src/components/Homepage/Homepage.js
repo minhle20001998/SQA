@@ -16,22 +16,22 @@ class Homepage extends Component {
             ],
             pupularHomestays: [
                 {
-                    name: "HOMESTAY NAME",
+                    name: "HOMESTAY NAME 1",
                     address: "#address",
                     price: "$560"
                 },
                 {
-                    name: "HOMESTAY NAME",
+                    name: "HOMESTAY NAME 2",
                     address: "#address",
                     price: "$560"
                 },
                 {
-                    name: "HOMESTAY NAME",
+                    name: "HOMESTAY NAME 3",
                     address: "#address",
                     price: "$560"
                 },
                 {
-                    name: "HOMESTAY NAME",
+                    name: "HOMESTAY NAME 4",
                     address: "#address",
                     price: "$560"
                 },
@@ -90,7 +90,7 @@ class Homepage extends Component {
                     <p className="main-heading">Our most popular homestay</p>
                     <div className="popular-homestays-body">
                         {pupularHomestays.map(homestay =>
-                            <Link to="/">
+                            <Link to="/" id={homestay.name+"-link"}>
                                 <div className="thumbnail"></div>
                                 <p className="homestay-name">{homestay.name}</p>
                                 <p className="homestay-address">{homestay.address}</p>

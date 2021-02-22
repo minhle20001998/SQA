@@ -24,12 +24,15 @@ class Navbar extends Component {
             </Link>
             <div className="links">
                 <ul>
-                    {links.map(link => <li> <Link className={(link.name).replace(" ", "-") + "-link"} to={link.link}>{link.name}</Link> </li>)}
+                    {links.map(link =>
+                        <li key={link.name + "-li"}>
+                            <Link className={(link.name).replace(" ", "-") + "-link"} to={link.link}>{link.name}</Link>
+                        </li>)}
                 </ul>
             </div>
             <div className="user-area">
-                <i class="fas fa-bell" id="bell-icon"></i>
-                <i class="fas fa-user-circle" id="user-icon"></i>
+                <i className="fas fa-bell" id="bell-icon"></i>
+                <i className="fas fa-user-circle" id="user-icon"></i>
             </div>
         </nav>
     }
