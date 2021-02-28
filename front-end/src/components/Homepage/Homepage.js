@@ -1,41 +1,27 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import Navbar from '../Nav/Navbar';
 import Slideshow from '../Slideshow/Slideshow';
 import Footer from '../Footer/Footer'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
 import './Homepage.css'
+import images from "../../images/slide_2.jpg"
+const avatars = [
+    images,
+    images,
+    images,
+    images
+]
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             slideImages: [
-                'images/slide.jpg',
-                'images/slide.jpg',
-                'images/slide.jpg'
+
             ],
-            pupularHomestays: [
-                {
-                    name: "HOMESTAY NAME 1",
-                    address: "#address",
-                    price: "$560"
-                },
-                {
-                    name: "HOMESTAY NAME 2",
-                    address: "#address",
-                    price: "$560"
-                },
-                {
-                    name: "HOMESTAY NAME 3",
-                    address: "#address",
-                    price: "$560"
-                },
-                {
-                    name: "HOMESTAY NAME 4",
-                    address: "#address",
-                    price: "$560"
-                },
-            ],
+            homestays: null
+
+            ,
             popularTrips: [
                 {
                     comment: 'This is a testimonial related to travel, and some dummy text to make it long.',
@@ -53,15 +39,71 @@ class Homepage extends Component {
                     comment: 'This is a testimonial related to travel, and some dummy text to make it long.',
                     title: "This is title of the travel package that is being featured here."
                 },
-            ]
+            ],
+            testData: null
+
         }
+
+    }
+
+
+    async componentDidMount() {
+        const urlHomestay = "https://sqa-api.herokuapp.com/homestay";
+        const resHomestay = await axios.get(urlHomestay);
+        const dataHomestay = await resHomestay.data;
+        const popular_homestays = [];
+        const slide_images = [];
+        for (let i = 0; i < 4; i++) {
+            popular_homestays.push(dataHomestay[i]);
+            slide_images.push(dataHomestay[i].image_link[1]);
+        }
+        this.setState({
+            homestays: popular_homestays,
+            slideImages: slide_images
+        })
+        //
+        const urlReview = "https://sqa-api.herokuapp.com/review"
+        const resReview = await axios.get(urlReview);
+        const dataReview = await resReview.data;
+        const popular_trips = dataReview.slice(0, 4);
+        this.setState({
+            popularTrips: popular_trips
+        })
     }
 
     render() {
-        const { slideImages, pupularHomestays, popularTrips } = this.state;
+        const { slideImages, homestays, popularTrips } = this.state;
+        const popular_trips = []
+        for (let i = 0; i < 4; i++) {
+            if (homestays != null) {
+                popular_trips.push(
+                    <div className="travel-card" key={Math.random() * popularTrips.length}>
+                        <div className="top-div">
+                            <div className="avatar">
+                            </div>
+                            <div className="popular-trips-comment">
+                                <p >
+                                    <q className="quotes">
+                                        {popularTrips[i].content}
+                                    </q>
+                                </p>
+                            </div>
+                        </div>
+                        <div to="/" className="card box-shadow padding-for-beige"
+                            style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${homestays[i].image_link[0]})` }}
+                        >
+                            <div className="card-info">
+                                <Link to="/">Read more</Link>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        }
+        //
         return <div className="homepage">
             <Navbar />
-            <Slideshow>{slideImages}</Slideshow>
+            {(slideImages.length > 0) ? <Slideshow>{slideImages}</Slideshow> : <></>}
             <header>
                 <div className="inspiration-div">
                     <div className="icon"></div>
@@ -89,12 +131,12 @@ class Homepage extends Component {
                 <div className="popular-homestays">
                     <p className="main-heading">Our most popular homestay</p>
                     <div className="popular-homestays-body">
-                        {pupularHomestays.map(homestay =>
-                            <Link to="/" id={homestay.name+"-link"}>
-                                <div className="thumbnail"></div>
+                        {homestays && homestays.map(homestay =>
+                            <Link to="/" key={homestay.name + "-link"}>
+                                <div className="thumbnail" style={{ backgroundImage: `url(${homestay.image_link[0]})` }}></div>
                                 <p className="homestay-name">{homestay.name}</p>
                                 <p className="homestay-address">{homestay.address}</p>
-                                <p className="homestay-price">{homestay.price}</p>
+                                <p className="homestay-price">{homestay.price + " VND"}</p>
                             </Link>
                         )}
                     </div>
@@ -105,27 +147,28 @@ class Homepage extends Component {
                 <div className="popular-trips">
                     <p className="main-heading">Our most popular trips</p>
                     <div className="popular-trips-body">
-                        {popularTrips.map(trip =>
-                            <div className="travel-card">
+                        {homestays && homestays.length > 0 && popularTrips && popularTrips.map((trip, index) => {
+                            return <div className="travel-card" key={Math.random() * popularTrips.length}>
                                 <div className="top-div">
-                                    <div className="avatar">
+                                    <div className="avatar" style={{ backgroundImage: `url(${avatars[index]})` }}>
                                     </div>
                                     <div className="popular-trips-comment">
                                         <p >
                                             <q className="quotes">
-                                                {trip.comment}
+                                                {trip.content}
                                             </q>
                                         </p>
                                     </div>
                                 </div>
-                                <div to="/" className="card box-shadow padding-for-beige">
+                                <div to="/" className="card box-shadow padding-for-beige"
+                                    style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${homestays[index].image_link[0]})` }}
+                                >
                                     <div className="card-info">
-                                        <p className="card-title">{trip.title}</p>
                                         <Link to="/">Read more</Link>
                                     </div>
                                 </div>
                             </div>
-                        )}
+                        })}
                     </div>
                 </div>
             </section>

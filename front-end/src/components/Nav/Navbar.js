@@ -17,6 +17,9 @@ class Navbar extends Component {
 
     }
 
+
+
+
     render() {
         return <nav className="navbar">
             <Link className="homestay-logo" to="/">

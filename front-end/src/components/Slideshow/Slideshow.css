@@ -3,8 +3,10 @@
   align-items: center;
   justify-content: center;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 500px;
-  background: #fdf0e5;
+  /* background: #fdf0e5; */
 }
 
 .each-slide span {

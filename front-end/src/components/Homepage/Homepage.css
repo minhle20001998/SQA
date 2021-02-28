@@ -18,10 +18,9 @@ header {
   align-items: flex-start;
 }
 
-header > div {
+.homepage header > div {
   width: 100%;
   padding: 30px 70px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,17 +68,23 @@ section {
 }
 /* PROTOTYPE !!! , WILL BE CHANGE WHEN CONNECT WITH SERVER */
 .popular-homestays-body > a {
+  width: 250px;
   text-decoration: none;
+  margin: 0 10px;
 }
 
 .popular-homestays-body > a > .thumbnail {
   width: 250px;
   height: 250px;
   background: var(--beige-color);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   box-shadow: var(--shadow);
   margin: 0 10px 20px 0px;
 }
 .popular-homestays-body > a > p {
+  width: 250px;
   font-family: "Lato";
   font-style: normal;
   font-weight: normal;
@@ -91,8 +96,8 @@ section {
 }
 
 .homestay-name {
-  font-size: 15px;
-  letter-spacing: 0.15em;
+  font-size: 18px !important;
+  letter-spacing: 0.10em;
 }
 
 .main-heading {
@@ -162,11 +167,14 @@ section {
   background: #4f4f4f;
   margin-right: 20px;
   border-radius: 100%;
+  background-size: cover;
+  border: 2px solid black;
 }
 .popular-trips-body .travel-card .popular-trips-comment {
+  padding-left: 10px;
   width: 80%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   line-height: 30px;
   text-align: start;
@@ -191,6 +199,9 @@ section {
 }
 
 .popular-trips-body .travel-card .card {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -222,8 +233,8 @@ section {
   line-height: 14px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-
-  color: #333333;
+  text-shadow: 2px 2px 5px black;
+  color: white;
 }
 @media only screen and (max-width: 1211px) {
   .popular-homestays-body {
@@ -253,7 +264,7 @@ section {
 
 @media only screen and (max-width: 1061px) {
   .popular-homestays-body > a {
-    margin: 0px 50px 0 50px;
+    margin: 0px 50px 20px 50px;
   }
 }
 
@@ -267,6 +278,7 @@ section {
     margin: 0 0 20px 0 !important;
   }
   .popular-trips-body .travel-card .avatar {
+
     width: 55px;
     height: 50px;
   }

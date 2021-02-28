@@ -15,15 +15,15 @@ class Footer extends Component {
                     </div>
                     <p className="address">#ADDRESS </p>
                     <div className="community">
-                        <Link to="/">
+                        <a href="https://www.youtube.com/">
                             <i className="fab fa-youtube"></i>
-                        </Link>
-                        <Link to="/">
+                        </a>
+                        <a href="https://www.facebook.com/">
                             <i className="fab fa-facebook"></i>
-                        </Link>
-                        <Link to="/">
+                        </a>
+                        <a href="https://www.instagram.com/">
                             <i className="fab fa-instagram"></i>
-                        </Link>
+                        </a>
                     </div>
                 </div>
                 <div className="copyright">

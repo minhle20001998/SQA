@@ -112,6 +112,7 @@ class HomestayBooking extends Component {
         })
     }
 
+    
     render() {
         const { slideImages, homestays } = this.state;
         return <div className="homestay-booking">
@@ -138,15 +139,18 @@ class HomestayBooking extends Component {
                     <div className="options-div">
                         <div className="people-quantity">
                             <label htmlFor="people-quantity-number">quantity of people</label>
-                            <input type="number" id="people-quantity-number" onInput={this.handleQuantityPeople} />
+                            <input type="number" id="people-quantity-number" min="0" inputMode="numeric" pattern="[0-9]*"
+                                onInput={this.handleQuantityPeople} />
                         </div>
                         <div className="children-quantity">
                             <label htmlFor="children-quantity-number">quantity of children</label>
-                            <input type="number" id="children-quantity-number" onInput={this.handleQuantityChildren} />
+                            <input type="number" id="children-quantity-number" min="0" inputMode="numeric" pattern="[0-9]*"
+                                onInput={this.handleQuantityChildren} />
                         </div>
                         <div className="dorm-room">
                             <label htmlFor="dorm-room-number">dorm room</label>
-                            <input type="number" id="dorm-room-number" onInput={this.handleDormRoom} />
+                            <input type="number" id="dorm-room-number" min="0" inputMode="numeric" pattern="[0-9]*"
+                                onInput={this.handleDormRoom} />
                         </div>
                     </div>
                     <div className="search-button-div">
