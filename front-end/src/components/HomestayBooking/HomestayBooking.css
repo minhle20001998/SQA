@@ -103,6 +103,7 @@ label {
 }
 
 .homestays > a {
+  width: 250px;
   text-decoration: none;
   margin-bottom: 30px;
 }
@@ -113,6 +114,9 @@ label {
   background: var(--beige-color);
   box-shadow: var(--shadow);
   margin: 0 10px 20px 0px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .homestays > a > p {

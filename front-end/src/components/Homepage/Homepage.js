@@ -4,7 +4,8 @@ import Navbar from '../Nav/Navbar';
 import Slideshow from '../Slideshow/Slideshow';
 import Footer from '../Footer/Footer'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import './Homepage.css'
+import './Homepage.css';
+import ScrollUpButton from "react-scroll-up-button";
 import images from "../../images/slide_2.jpg"
 const avatars = [
     images,
@@ -73,35 +74,10 @@ class Homepage extends Component {
 
     render() {
         const { slideImages, homestays, popularTrips } = this.state;
-        const popular_trips = []
-        for (let i = 0; i < 4; i++) {
-            if (homestays != null) {
-                popular_trips.push(
-                    <div className="travel-card" key={Math.random() * popularTrips.length}>
-                        <div className="top-div">
-                            <div className="avatar">
-                            </div>
-                            <div className="popular-trips-comment">
-                                <p >
-                                    <q className="quotes">
-                                        {popularTrips[i].content}
-                                    </q>
-                                </p>
-                            </div>
-                        </div>
-                        <div to="/" className="card box-shadow padding-for-beige"
-                            style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${homestays[i].image_link[0]})` }}
-                        >
-                            <div className="card-info">
-                                <Link to="/">Read more</Link>
-                            </div>
-                        </div>
-                    </div>
-                );
-            }
-        }
+
         //
-        return <div className="homepage">
+        return <div className="homepage" >
+            <ScrollUpButton />
             <Navbar />
             {(slideImages.length > 0) ? <Slideshow>{slideImages}</Slideshow> : <></>}
             <header>

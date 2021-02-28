@@ -1,39 +1,19 @@
+import axios from 'axios';
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Navbar from "../Nav/Navbar"
 import Footer from "../Footer/Footer"
 import Slideshow from "../Slideshow/Slideshow"
 import "./HomestayBooking.css"
+
+
 class HomestayBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
             slideImages: [
-                'images/slide.jpg',
-                'images/slide.jpg',
-                'images/slide.jpg'
             ],
             homestays: [
-                {
-                    name: "HOMESTAY NAME 1",
-                    address: "#address",
-                    price: "$560"
-                },
-                {
-                    name: "HOMESTAY NAME 2",
-                    address: "#address",
-                    price: "$560"
-                },
-                {
-                    name: "HOMESTAY NAME 3",
-                    address: "#address",
-                    price: "$560"
-                },
-                {
-                    name: "HOMESTAY NAME 4",
-                    address: "#address",
-                    price: "$560"
-                },
             ],
             searchQuery: {
                 address: "",
@@ -43,6 +23,7 @@ class HomestayBooking extends Component {
                 quantityOfChildren: "",
                 dormRoom: ""
             },
+            steps: 6
         };
         this.handleAddressInput = this.handleAddressInput.bind(this);
         this.handleCheckInInput = this.handleCheckInInput.bind(this);
@@ -50,6 +31,7 @@ class HomestayBooking extends Component {
         this.handleQuantityPeople = this.handleQuantityPeople.bind(this);
         this.handleQuantityChildren = this.handleQuantityChildren.bind(this);
         this.handleDormRoom = this.handleDormRoom.bind(this);
+        this.handleLoadMore = this.handleLoadMore.bind(this);
     }
 
     handleAddressInput(e) {
@@ -112,12 +94,43 @@ class HomestayBooking extends Component {
         })
     }
 
-    
+    handleLoadMore() {
+        const { homestays, steps } = this.state;
+        if (steps + 6 < homestays.length) {
+            this.setState({
+                steps: steps + 6
+            })
+        } else {
+            this.setState({
+                steps: homestays.length
+            })
+        }
+    }
+
+    async componentDidMount() {
+        const { steps } = this.state;
+        const urlHomestay = "https://sqa-api.herokuapp.com/homestay";
+        const resHomestay = await axios.get(urlHomestay);
+        const dataHomestay = await resHomestay.data;
+        this.setState({
+            homestays: dataHomestay,
+
+        });
+        //
+        const slide_images = [];
+        for (let i = 0; i < 4; i++) {
+            slide_images.push(dataHomestay[i].image_link[1]);
+        };
+        this.setState({
+            slideImages: slide_images
+        });
+    }
+
     render() {
-        const { slideImages, homestays } = this.state;
+        const { slideImages, homestays, steps } = this.state;
         return <div className="homestay-booking">
             <Navbar />
-            <Slideshow>{slideImages}</Slideshow>
+            {(slideImages.length > 0) ? <Slideshow>{slideImages}</Slideshow> : <></>}
             <header id="homestay-booking-header">
                 <p >
                     A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
@@ -159,17 +172,20 @@ class HomestayBooking extends Component {
                 </div>
                 <div className="right-side">
                     <div className="homestays">
-                        {homestays.map(homestay =>
-                            <Link to="/" key={homestay.name + "-link"}>
-                                <div className="thumbnail"></div>
-                                <p className="homestay-name">{homestay.name}</p>
-                                <p className="homestay-address">{homestay.address}</p>
-                                <p className="homestay-price">{homestay.price}</p>
-                            </Link>
+                        {homestays && homestays.length > 0 && homestays.map((homestay, index) => {
+                            if (index < steps) {
+                                return <Link to="/" key={homestay.name + "-link"}>
+                                    <div className="thumbnail" style={{ backgroundImage: `url(${homestay.image_link[0]})` }}></div>
+                                    <p className="homestay-name">{homestay.name}</p>
+                                    <p className="homestay-address">{homestay.address}</p>
+                                    <p className="homestay-price">{homestay.price + " VND"}</p>
+                                </Link>
+                            }
+                        }
                         )}
                     </div>
                     <div className="load-more-div">
-                        <button className="load-more-button">Load more</button>
+                        <button className="load-more-button" onClick={this.handleLoadMore}>Load more</button>
                     </div>
                 </div>
             </section>
