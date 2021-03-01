@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Navbar from '../Nav/Navbar';
 import Slideshow from '../Slideshow/Slideshow';
 import Footer from '../Footer/Footer'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter, Link } from 'react-router-dom';
 import './Homepage.css';
 import ScrollUpButton from "react-scroll-up-button";
 import images from "../../images/slide_2.jpg"
@@ -74,7 +74,7 @@ class Homepage extends Component {
 
     render() {
         const { slideImages, homestays, popularTrips } = this.state;
-
+        const { match, location, history } = this.props;
         //
         return <div className="homepage" >
             <ScrollUpButton />
@@ -117,7 +117,7 @@ class Homepage extends Component {
                         )}
                     </div>
                     <div className="popular-homestays-footer">
-                        <button className="all-products-button">VIEW ALL PRODUCTS</button>
+                        <button className="all-products-button" onClick={() => { history.push('/booking') }} >VIEW ALL PRODUCTS</button>
                     </div>
                 </div>
                 <div className="popular-trips">
@@ -153,4 +153,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default withRouter(Homepage);

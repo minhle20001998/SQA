@@ -12,7 +12,7 @@
 #homestay-booking-header p {
   font-family: Lato;
   width: 560px;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 24px;
   text-align: center;
   color: #6d6d6d;
@@ -98,12 +98,12 @@ label {
 .homestays {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
 .homestays > a {
-  width: 250px;
+  width: 255px;
   text-decoration: none;
   margin-bottom: 30px;
 }
@@ -128,6 +128,10 @@ label {
   color: #363636;
   text-shadow: var(--shadow);
   margin-bottom: 10px;
+}
+
+.homestays-address {
+  text-align: justify;
 }
 
 .right-side .load-more-div {
