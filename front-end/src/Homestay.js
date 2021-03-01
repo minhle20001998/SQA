@@ -10,8 +10,6 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 class Homestay extends Component {
     render() {
         return <div className="homestay" >
-            <button className="scroll-button"></button>
-
             <Router>
                 <Switch>
                     <Route exact path="/booking">
