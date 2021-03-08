@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Homestay-Booking</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="public/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/fontawesome.css">
+    <link rel="stylesheet" href="public/css/homestayBooking.css">
+</head>
+<body>
+	<header class="">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <div class="logo">
+          <img src="public/images/logo.jpg">
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="">DESTINATION</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">HOMESTAY BOOKING</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">IMAGE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">JOURNEY’S EXPERIENCES</a>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-icon">
+          <a href=""><i class="fa fa-bell"></i></a>
+          <a href=""><i class="fa fa-user"></i></a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="main-banner header-text">
+    <a href=""><img src="public/images/home.jpg" alt=""></a>
+    <div class="main-content">
+      <div class="meta-text">
+        <h2>Where do you want to go?</h2>
+      </div>
+      <div class="search row">
+        <form id="search-form" name="" method="" action="">
+          <input type="text" class="searchText" placeholder="Select Place">
+        </form>
+        <button><i class="fa fa-search icon-search" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <section class="detail-parts grid-system">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="slider">
+            <div class="mySlides">
+              <div class="numbertext">1 / 4</div>
+                <img src="public/images/slide1.jpg" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+              <div class="numbertext">2 / 4</div>
+                <img src="public/images/slide2.jpg" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+              <div class="numbertext">3 / 4</div>
+                <img src="public/images/slide3.jpg" style="width:100%">
+            </div>
+
+            <div class="mySlides">
+              <div class="numbertext">4 / 4</div>
+                <img src="public/images/slide4.jpg" style="width:100%">
+            </div>
+            <!-- Next and previous buttons -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <!-- Image text -->
+            <div class="caption-container">
+              <p id="caption"></p>
+            </div>
+
+            <!-- Thumbnail images -->
+            <div class="row small-img">
+              <div class="column">
+                <img class="demo cursor" src="public/images/slide1.jpg" style="width:100%" onclick="currentSlide(1)" alt="slide1">
+              </div>
+              <div class="column">
+                <img class="demo cursor" src="public/images/slide2.jpg" style="width:100%" onclick="currentSlide(2)" alt="slide2">
+              </div>
+              <div class="column">
+                <img class="demo cursor" src="public/images/slide3.jpg" style="width:100%" onclick="currentSlide(3)" alt="slide3">
+              </div>
+              <div class="column">
+                <img class="demo cursor" src="public/images/slide4.jpg" style="width:100%" onclick="currentSlide(4)" alt="slide4">
+              </div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="col-lg-12">
+              <div class="sidebar-item submit-comment">
+                <div class="sidebar-heading">
+                  <h4><i class="fa fa-comments"></i>  Comments</h4>
+                </div>
+                <div class="content">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <textarea name="comment" rows="6" id="message" placeholder="Enter your comment" required="" style="width: 100%; height: 70px;"></textarea>
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <button type="button" id="form-submit" class="main-button">Post</button>
+                        </fieldset>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="comment-item">
+                <div class="row" id="form-comment">
+                  <div class="author-thumb">
+                    <img src='public/images/avt-comment.jpg' alt="">
+                  </div>
+                  <div class="right-content">
+                    <h6>Nguyen Van A</h6>
+                    <p>2021-07-23</p>
+                    <p>//comment</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="information">
+            <div class="row">
+              <i class="fa fa-flag-o"></i>
+              <p>//location</p>
+            </div>
+            <div class="row">
+              <i class="fa fa-mobile-phone"></i>
+              <p>//phone</p>
+            </div>
+            <div class="row">
+              <i class="fa fa-facebook-official"></i>
+              <p>//link face</p>
+            </div>
+            <div class="row">
+              <i class="fa fa-server"></i>
+              <p>//lick website</p>
+            </div>
+            <div class="row">
+              <div class="col-lg-7" style="margin-left: -10px;">
+                <button>
+                <i class="fa fa-cart-plus"></i>
+              </button>
+              </div>
+              <div class="payment col-lg-5">
+                <i class="fa fa-cc-mastercard"></i>
+                <i class="fa fa-cc-visa"></i>
+                <i class="fa fa-paypal"></i>
+              </div>
+            </div>
+          </div>
+          <div class="advertisment">
+            <h4>Advertisment</h4>
+            <img src="public/images/7up.jpg" width="100%" height="450px">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr>
+  <section class="grid-system">
+    <div class="container row footer">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-3">
+        <div class="logo-footer">
+          <img src="public/images/logo.jpg">
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="content-footer">
+          <a class="address" href="">SQA-group@@</a>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="content-footer">
+          <a href=""><i class="fa fa-youtube-square"></i></i></a>
+          <a href=""><i class="fa fa-facebook-official"></i></a>
+          <a href=""><i class="fa fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+
+    </div>
+  </section>
+</body>
+<script type="text/javascript">
+  var slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+</html>

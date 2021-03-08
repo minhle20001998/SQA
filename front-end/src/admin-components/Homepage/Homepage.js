@@ -1,9 +1,63 @@
+import axios from 'axios';
 import React, { Component } from 'react'
 import Navbar from '../navbar/Navbar'
 import Sidebar from '../sidebar/Sidebar'
 import "./Homepage.css"
 class Homepage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            total_booking: 0,
+            total_homestays: 0,
+            total_rating: 0,
+            total_revenue: 0,
+        }
+
+
+    }
+
+    componentDidMount() {
+        //get total booking
+        Promise.all([this.getTransaction(), this.getHomestays(), this.getReview()]).then((results) => {
+            const total_booking = results[0].data.length;
+            const total_homestays = results[1].data.length;
+            const total_rating = results[2].data.length;
+            const total_revenue = this.calculateRevenue(results[0].data);
+
+            this.setState({
+                total_booking: total_booking,
+                total_homestays: total_homestays,
+                total_rating: total_rating,
+                total_revenue: total_revenue
+            })
+
+        })
+    }
+
+
+
+    calculateRevenue(transaction) {
+        let revenue = 0;
+        transaction.map((trans, index) => {
+            revenue = revenue + parseInt(trans.payment);
+        })
+        return new Intl.NumberFormat().format(revenue);
+    }
+
+    getTransaction() {
+        return axios.get('https://sqa-api.herokuapp.com/transaction');
+    }
+
+    getHomestays() {
+        return axios.get('https://sqa-api.herokuapp.com/homestay');
+    }
+
+    getReview() {
+        return axios.get('https://sqa-api.herokuapp.com/review');
+    }
+
     render() {
+        const { total_booking, total_homestays, total_rating, total_revenue } = this.state;
         return <div className="admin-homepage">
             <Sidebar />
             <div className="main-view">
@@ -21,7 +75,7 @@ class Homepage extends Component {
                             Total Booking
                         </p>
                         <div className="statistic-data">
-                            1500
+                            {total_booking}
                         </div>
                     </div>
                     <div className="total-booking">
@@ -32,7 +86,7 @@ class Homepage extends Component {
                             Homestays
                         </p>
                         <div className="statistic-data">
-                            1500
+                            {total_homestays}
                         </div>
                     </div>
                     <div className="total-booking">
@@ -43,7 +97,7 @@ class Homepage extends Component {
                             Ratings
                         </p>
                         <div className="statistic-data">
-                            1500
+                            {total_rating}
                         </div>
                     </div>
                     <div className="total-booking">
@@ -54,7 +108,7 @@ class Homepage extends Component {
                             Total Revenue
                         </p>
                         <div className="statistic-data">
-                            1500
+                            {total_revenue}
                         </div>
                     </div>
                 </section>

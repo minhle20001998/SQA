@@ -5,14 +5,13 @@ import Navbar from "../Nav/Navbar"
 import Footer from "../Footer/Footer"
 import Slideshow from "../Slideshow/Slideshow"
 import "./HomestayBooking.css"
-
+import ScrollUpButton from "react-scroll-up-button";
+import ScrollToTop from "../ScrollToTop/ScrollToTop"
 
 class HomestayBooking extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            slideImages: [
-            ],
             homestays: [
             ],
             searchQuery: {
@@ -108,7 +107,6 @@ class HomestayBooking extends Component {
     }
 
     async componentDidMount() {
-        const { steps } = this.state;
         const urlHomestay = "https://sqa-api.herokuapp.com/homestay";
         const resHomestay = await axios.get(urlHomestay);
         const dataHomestay = await resHomestay.data;
@@ -116,27 +114,24 @@ class HomestayBooking extends Component {
             homestays: dataHomestay,
 
         });
-        //
-        const slide_images = [];
-        for (let i = 0; i < 4; i++) {
-            slide_images.push(dataHomestay[i].image_link[1]);
-        };
-        this.setState({
-            slideImages: slide_images
-        });
+
     }
 
     render() {
         const { slideImages, homestays, steps } = this.state;
+        const { isLogin, logo } = this.props;
         return <div className="homestay-booking">
-            <Navbar />
-            {(slideImages.length > 0) ? <Slideshow>{slideImages}</Slideshow> : <></>}
+            <ScrollToTop />
+            <ScrollUpButton />
+            <Navbar current="homestay booking" logo={logo} isLogin={isLogin} />
+            <Slideshow />
             <header id="homestay-booking-header">
                 <p >
                     A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
                     I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.
                 </p>
             </header>
+            {/*  */}
             <section id="homestay-booking-section">
                 <div className="side-bar">
                     {/* search bar */}
@@ -174,7 +169,8 @@ class HomestayBooking extends Component {
                     <div className="homestays">
                         {homestays && homestays.length > 0 && homestays.map((homestay, index) => {
                             if (index < steps) {
-                                return <Link to="/" key={homestay.name + "-link"}>
+
+                                return <Link to={`homestay/${homestay._id}`} key={homestay.name + "-link"}>
                                     <div className="thumbnail" style={{ backgroundImage: `url(${homestay.image_link[0]})` }}></div>
                                     <p className="homestay-name">{homestay.name}</p>
                                     <p className="homestay-address">{homestay.address}</p>
@@ -189,7 +185,7 @@ class HomestayBooking extends Component {
                     </div>
                 </div>
             </section>
-            <Footer />
+            <Footer logo={logo} />
         </div>
     }
 }

@@ -97,7 +97,8 @@ label {
 }
 .homestays {
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
@@ -120,6 +121,7 @@ label {
 }
 
 .homestays > a > p {
+  padding-right: 5px;
   font-family: "Lato";
   font-style: normal;
   font-weight: normal;
@@ -153,6 +155,12 @@ label {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: #000000;
+  border: none;
+  outline: none;
+}
+
+.right-side button:hover {
+  background-color: #dadada;
 }
 
 @media only screen and (max-width: 926px) {

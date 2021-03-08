@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './Footer.css';
 
-const source = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJqi2eeymNAgNrdvwQcDOf-6i3j_KN8eHFqw&usqp=CAU";
 
 class Footer extends Component {
 
     render() {
+        const { logo } = this.props;
         return <footer>
             <Router>
                 <div className="footer-bar">
                     <div className="homestay-logo">
-                        <img src={source} alt="logo" className="logo" />
+                        <img src={logo} alt="logo" className="logo" />
                     </div>
                     <p className="address">#ADDRESS </p>
                     <div className="community">

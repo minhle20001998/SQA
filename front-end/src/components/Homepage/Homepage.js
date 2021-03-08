@@ -6,22 +6,14 @@ import Footer from '../Footer/Footer'
 import { BrowserRouter as Router, withRouter, Link } from 'react-router-dom';
 import './Homepage.css';
 import ScrollUpButton from "react-scroll-up-button";
-import images from "../../images/slide_2.jpg"
-const avatars = [
-    images,
-    images,
-    images,
-    images
-]
+import user_image from "../../images/user.png";
+import ScrollToTop from "../ScrollToTop/ScrollToTop"
+
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            slideImages: [
-
-            ],
             homestays: null
-
             ,
             popularTrips: [
                 {
@@ -41,14 +33,13 @@ class Homepage extends Component {
                     title: "This is title of the travel package that is being featured here."
                 },
             ],
-            testData: null
-
         }
 
     }
 
 
     async componentDidMount() {
+        console.log("homepage")
         const urlHomestay = "https://sqa-api.herokuapp.com/homestay";
         const resHomestay = await axios.get(urlHomestay);
         const dataHomestay = await resHomestay.data;
@@ -56,14 +47,12 @@ class Homepage extends Component {
         const slide_images = [];
         for (let i = 0; i < 4; i++) {
             popular_homestays.push(dataHomestay[i]);
-            slide_images.push(dataHomestay[i].image_link[1]);
         }
         this.setState({
             homestays: popular_homestays,
-            slideImages: slide_images
         })
         //
-        const urlReview = "https://sqa-api.herokuapp.com/review"
+        const urlReview = "https://sqa-api.herokuapp.com/broad"
         const resReview = await axios.get(urlReview);
         const dataReview = await resReview.data;
         const popular_trips = dataReview.slice(0, 4);
@@ -74,15 +63,16 @@ class Homepage extends Component {
 
     render() {
         const { slideImages, homestays, popularTrips } = this.state;
-        const { match, location, history } = this.props;
+        const { logo, history, isLogin } = this.props;
         //
         return <div className="homepage" >
+            <ScrollToTop />
             <ScrollUpButton />
-            <Navbar />
-            {(slideImages.length > 0) ? <Slideshow>{slideImages}</Slideshow> : <></>}
+            <Navbar current="homepage" logo={logo} isLogin={isLogin} />
+            <Slideshow />
             <header>
                 <div className="inspiration-div">
-                    <div className="icon"></div>
+                    <div className="icon" ></div>
                     <p className="heading">INSPIRATION</p>
                     <p className="content">
                         Many tourist attraction are shown here. Let’s see !
@@ -123,32 +113,35 @@ class Homepage extends Component {
                 <div className="popular-trips">
                     <p className="main-heading">Our most popular trips</p>
                     <div className="popular-trips-body">
+                        {/* mapping */}
                         {homestays && homestays.length > 0 && popularTrips && popularTrips.map((trip, index) => {
                             return <div className="travel-card" key={Math.random() * popularTrips.length}>
                                 <div className="top-div">
-                                    <div className="avatar" style={{ backgroundImage: `url(${avatars[index]})` }}>
+                                    <div className="avatar" style={{ backgroundImage: `url(${user_image})` }}>
                                     </div>
                                     <div className="popular-trips-comment">
                                         <p >
                                             <q className="quotes">
-                                                {trip.content}
+                                                {trip.title}
                                             </q>
                                         </p>
                                     </div>
                                 </div>
                                 <div to="/" className="card box-shadow padding-for-beige"
-                                    style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${homestays[index].image_link[0]})` }}
+                                    style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${trip.image_link})` }}
                                 >
                                     <div className="card-info">
+                                        <p className="card-title">"{trip.content}"</p>
                                         <Link to="/">Read more</Link>
                                     </div>
                                 </div>
                             </div>
                         })}
+                        <></>
                     </div>
                 </div>
             </section>
-            <Footer></Footer>
+            <Footer logo={logo}></Footer>
         </div>
     }
 }

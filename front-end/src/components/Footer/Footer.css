@@ -23,27 +23,21 @@ footer .footer-bar {
   border-radius: 10px;
   padding: 0 40px;
 }
-
+footer .footer-bar > div {
+  width: 250px;
+}
 footer .footer-bar .community {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 30px;
+  padding: 0 30px
 }
 footer .footer-bar .community > a > i {
   font-size: 30px;
   margin: 0 10px;
   color: #4f4f4f;
 }
-.homestay-logo {
-  padding: 0 30px;
-}
-.homestay-logo img {
-  background: #c4c4c4;
-  width: 100px;
-  height: 90px;
-  border-radius: 100%;
-}
+
 .copyright > p {
   margin-bottom: 20px;
 }
@@ -62,6 +56,12 @@ footer .footer-bar .community > a > i {
   footer .footer-bar {
     padding: 20px 40px !important;
   }
+
+  footer .footer-bar .homestay-logo{
+    display: flex;
+    justify-content: center;
+  }
+
   .footer-bar .address {
     text-align: center;
   }
