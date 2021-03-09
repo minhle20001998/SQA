@@ -8,31 +8,13 @@ import './Homepage.css';
 import ScrollUpButton from "react-scroll-up-button";
 import user_image from "../../images/user.png";
 import ScrollToTop from "../ScrollToTop/ScrollToTop"
-
+import moneyFormatter from "../Functions/moneyFormatter"
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             homestays: null
             ,
-            popularTrips: [
-                {
-                    comment: 'This is a testimonial related to travel, and some dummy text to make it long.',
-                    title: "This is title of the travel package that is being featured here."
-                },
-                {
-                    comment: 'This is a testimonial related to travel, and some dummy text to make it long.',
-                    title: "This is title of the travel package that is being featured here."
-                },
-                {
-                    comment: 'This is a testimonial related to travel, and some dummy text to make it long.',
-                    title: "This is title of the travel package that is being featured here."
-                },
-                {
-                    comment: 'This is a testimonial related to travel, and some dummy text to make it long.',
-                    title: "This is title of the travel package that is being featured here."
-                },
-            ],
         }
 
     }
@@ -102,7 +84,7 @@ class Homepage extends Component {
                                 <div className="thumbnail" style={{ backgroundImage: `url(${homestay.image_link[0]})` }}></div>
                                 <p className="homestay-name">{homestay.name}</p>
                                 <p className="homestay-address">{homestay.address}</p>
-                                <p className="homestay-price">{homestay.price + " VND"}</p>
+                                <p className="homestay-price">{moneyFormatter(homestay.price) + " VND"}</p>
                             </Link>
                         )}
                     </div>
@@ -132,7 +114,7 @@ class Homepage extends Component {
                                 >
                                     <div className="card-info">
                                         <p className="card-title">"{trip.content}"</p>
-                                        <Link to="/">Read more</Link>
+                                        <Link to="/journey">Read more</Link>
                                     </div>
                                 </div>
                             </div>

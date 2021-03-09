@@ -7,6 +7,7 @@ import Slideshow from "../Slideshow/Slideshow"
 import "./HomestayBooking.css"
 import ScrollUpButton from "react-scroll-up-button";
 import ScrollToTop from "../ScrollToTop/ScrollToTop"
+import moneyFormatter from "../Functions/moneyFormatter"
 
 class HomestayBooking extends Component {
     constructor(props) {
@@ -106,6 +107,8 @@ class HomestayBooking extends Component {
         }
     }
 
+
+
     async componentDidMount() {
         const urlHomestay = "https://sqa-api.herokuapp.com/homestay";
         const resHomestay = await axios.get(urlHomestay);
@@ -174,7 +177,7 @@ class HomestayBooking extends Component {
                                     <div className="thumbnail" style={{ backgroundImage: `url(${homestay.image_link[0]})` }}></div>
                                     <p className="homestay-name">{homestay.name}</p>
                                     <p className="homestay-address">{homestay.address}</p>
-                                    <p className="homestay-price">{homestay.price + " VND"}</p>
+                                    <p className="homestay-price">{moneyFormatter(homestay.price) + " VND"}</p>
                                 </Link>
                             }
                         }

@@ -171,7 +171,7 @@ class Homestays extends Component {
                         <h4>All Homestays</h4>
                     </div>
                     <div>
-                        <i class="fas fa-plus-circle"></i>
+                        <i className="fas fa-plus-circle"></i>
                     </div>
                 </header>
                 <section id="homestays-statistic">

@@ -9,6 +9,7 @@
   flex-direction: row;
   font-family: "Playfair Display", serif;
   padding: 5px 0;
+  background-color: white;
 }
 .homestay-logo {
   padding: 0 0 0 20px;
@@ -31,7 +32,7 @@
   display: inline-block;
   text-decoration: none;
   text-transform: uppercase;
-  color: black;
+  color: rgb(75, 75, 75);
   font-size: 20px;
 }
 

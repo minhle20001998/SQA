@@ -27,3 +27,7 @@ button{
   height: 20px !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+

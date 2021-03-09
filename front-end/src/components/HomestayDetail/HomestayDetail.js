@@ -9,20 +9,33 @@ import { BrowserRouter as Router, withRouter, Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import Footer from '../Footer/Footer'
 import user_image from "../../images/user.png";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import moneyFormatter from "../Functions/moneyFormatter"
 
 class HomestayDetail extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            dialogOpen: false,
             homestay: null,
             reviews: null,
-            user: null
+            user: null,
+            error: "",
+            value: 1
+
         }
         this.slideRef = React.createRef();
         this.getReview = this.getReview.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.handlePostReview = this.handlePostReview.bind(this);
+        this.handleEditClose = this.handleEditClose.bind(this);
+        this.handleEditOnClick = this.handleEditOnClick.bind(this);
+        this.handleTransaction = this.handleTransaction.bind(this);
     }
 
     async componentDidMount() {
@@ -72,14 +85,13 @@ class HomestayDetail extends Component {
     async handlePostReview(e) {
         const { user } = this.state;
         const content = document.querySelector("#message").value;
-        console.log(content)
         const homestay_id = this.props.match.params.id;
         const urlReview = "https://sqa-api.herokuapp.com/review";
         const request = {
             homestay_id: homestay_id,
             name: user.name,
             email: user.email,
-            content: content
+            content: content,
         }
         const reviewResult = await axios.post(urlReview, request);
         if (reviewResult.data === "added!") {
@@ -97,26 +109,82 @@ class HomestayDetail extends Component {
         return date.toLocaleDateString("en-US", options);
     }
 
+    handleEditOnClick(e) {
+        this.setState({
+            dialogOpen: true,
+        });
+
+    }
+
+    handleEditClose() {
+        this.setState({
+            dialogOpen: false
+        })
+    }
+
+    async handleTransaction() {
+        const { user, homestay } = this.state;
+        const transaction_url = "https://sqa-api.herokuapp.com/transaction"
+        const amount = parseInt(document.querySelector('#amount').value);
+        if (amount) {
+            const request = {
+                user_id: user._id,
+                homestay_id: homestay._id,
+                amount: amount
+            }
+            const result = await axios.post(transaction_url, request);
+            this.handleEditClose();
+            window.alert(`GIAO DICH THANH CONG, TAI KHOAN CUA BAN DA BI TRU ${amount * parseInt(homestay.price)} VND`)
+        } else {
+            this.setState({
+                err: "Please enter homestay amount"
+            })
+        }
+    }
+
     render() {
         const { isLogin, logo } = this.props;
-        const { homestay, reviews } = this.state;
+        const { homestay, reviews, dialogOpen, err, value } = this.state;
         return <div className="homestay_detail">
+            {(homestay && reviews) ? <Dialog open={dialogOpen} onClose={this.handleEditClose} id="bill" >
+                <DialogTitle id="form-dialog-title">Edit Homestays</DialogTitle>
+                <p style={{ color: "red", textAlign: "center" }}>{err}</p>
+                <DialogContent id="bill-form">
+                    <div>
+                        <DialogContentText>
+                            Homestay Name
+                        </DialogContentText>
+                        <p>{homestay.name ? homestay.name : ""}</p>
+                    </div>
+                    <div>
+                        <DialogContentText>
+                            Catalog Name
+                        </DialogContentText>
+                        <p>{homestay.catalog_name ? homestay.catalog_name : ""}</p>
+                    </div>
+                    <div>
+                        <DialogContentText>
+                            Price
+                        </DialogContentText>
+                        <p id="price" >{homestay.price ? moneyFormatter(parseInt(homestay.price) * parseInt(value)) : ""}</p>
+                    </div>
+                    <div>
+                        <DialogContentText>
+                            Amount
+                        </DialogContentText>
+                        <input min="1" type="number" defaultValue={1} id="amount" required="required" onInput={(e) => { this.setState({ value: e.target.value }) }} />
+                    </div>
+                    <DialogActions>
+                        <button type="submit" className="action-btn" id="save-btn" onClick={this.handleTransaction}>Confirm</button>
+                        <button className="action-btn" id="close-btn" onClick={this.handleEditClose}>Close</button>
+                    </DialogActions>
+                </DialogContent>
+            </Dialog> : <></>}
+
             <ScrollToTop />
             <ScrollUpButton />
             <Navbar isLogin={isLogin} logo={logo} />
-            <Slideshow >
-                <div className="main-content">
-                    <div className="meta-text">
-                        <h2>Where do you want to go?</h2>
-                    </div>
-                    <div className="search row">
-                        <form className="search-form" name="" method="" action="">
-                            <input type="text" className="searchText" placeholder="Select Place" />
-                        </form>
-                        <button><i className="fa fa-search icon-search" aria-hidden="true"></i></button>
-                    </div>
-                </div>
-            </Slideshow>
+            <Slideshow />
             {(homestay && reviews) ?
                 <section className="detail-parts grid-system">
                     <div className="container">
@@ -202,7 +270,7 @@ class HomestayDetail extends Component {
                                     </div>
                                     <div className="row">
                                         <i className="fas fa-hand-holding-usd"></i>
-                                        <p>{homestay.price} VND</p>
+                                        <p>{moneyFormatter(homestay.price)} VND</p>
                                     </div>
 
                                     <div className="row">
@@ -219,7 +287,7 @@ class HomestayDetail extends Component {
                                     </div>
                                     <div className="row bottom-row">
                                         <div className="col-lg-7" style={{ marginLeft: -10 + "px" }}>
-                                            <button className=" style-btn">
+                                            <button className=" style-btn" onClick={this.handleEditOnClick}>
                                                 <i className="fa fa-cart-plus"></i>
                                             </button>
                                         </div>
