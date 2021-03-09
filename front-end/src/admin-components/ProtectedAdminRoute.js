@@ -6,7 +6,7 @@ class ProtectedAdminRoute extends Component {
         const { isLogin, path, children, exact } = this.props;
         console.log("admin protected ", this.props)
         return <Route exact={exact} to={path}>
-            {isLogin ? children : <Redirect push to="admin/login" />}
+            {isLogin ? children : <Redirect push to="/admin/login" />}
         </Route>
     }
 }
