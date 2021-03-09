@@ -180,7 +180,6 @@ class HomestayDetail extends Component {
                     </DialogActions>
                 </DialogContent>
             </Dialog> : <></>}
-
             <ScrollToTop />
             <ScrollUpButton />
             <Navbar isLogin={isLogin} logo={logo} />
