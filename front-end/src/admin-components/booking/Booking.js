@@ -171,7 +171,7 @@ class Booking extends Component {
                         <h4>All Booking</h4>
                     </div>
                     <div>
-                        <i class="fas fa-plus-circle"></i>
+                        <i className="fas fa-plus-circle"></i>
                     </div>
                 </header>
                 <section id="booking-statistic">

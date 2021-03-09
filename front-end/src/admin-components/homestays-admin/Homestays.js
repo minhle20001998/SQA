@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { DataGrid } from '@material-ui/data-grid';
 import Dialog from '@material-ui/core/Dialog';
+import Container from '@material-ui/core/Container';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -8,6 +9,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Navbar from '../navbar/Navbar'
 import Sidebar from '../sidebar/Sidebar'
 import './Homestays.css'
+import { getHomeStay, addHomeStay } from '../../utils/requestAPI/index';
+import AddHomestayDialog from './AddHomestayDialog'
 
 
 
@@ -15,7 +18,8 @@ class Homestays extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dialogOpen: false,
+            isOpenDialogAdd: false,
+            isOpenDialogDelete: false,
             editInfo: {
                 id: "",
                 catalogName: "",
@@ -26,7 +30,7 @@ class Homestays extends Component {
             },
             columns: [
                 { field: 'id', headerName: 'Homestay_ID', width: 120 },
-                { field: 'catalogName', headerName: 'Catalog name', width: 130 },
+                { field: 'catalog_name', headerName: 'Catalog name', width: 130 },
                 { field: 'price', headerName: 'Price', width: 100 },
                 {
                     field: 'name',
@@ -46,48 +50,56 @@ class Homestays extends Component {
                     width: 200,
 
                 },
-                {
-                    field: "Edit",
-                    width: 60,
-                    sortable: false,
-                    renderCell: (params) => (
-                        <button className="table-buttons green-btn" id='edit' value={params.getValue('id')}
-                            onClick={this.handleEditOnClick}>
-                            Edit
-                        </button>
-                    )
-                },
+                // {
+                //     field: "Edit",
+                //     width: 60,
+                //     sortable: false,
+                //     renderCell: (params) => (
+                //         <button className="table-buttons green-btn" id='edit' value={params.getValue('id')}
+                //             onClick={this.handleEditOnClick}>
+                //             Edit
+                //         </button>
+                //     )
+                // },
                 {
                     field: "Delete",
                     width: 80,
                     sortable: false,
                     renderCell: (params) => (
                         <button className="table-buttons red-btn" id='delete' value={params.getValue('id')}
-                            onClick={this.handleEditOnClick}
+                            onClick={this.handleToggleDialogDelete}
                         >
                             Delete
                         </button>
                     )
                 },
-
-
             ],
-            rows: [
-                { id: 1, catalogName: 'Snow', price: 4000, name: 'Jon', address: 'Hanoi', description: "description goes here" },
-                { id: 2, catalogName: 'Lannister', price: 4000, name: 'Cersei', address: 'Hanoi', description: "description goes here" },
-                { id: 3, catalogName: 'Lannister', price: 4000, name: 'Jaime', address: 'Hanoi', description: "description goes here" },
-                { id: 4, catalogName: 'Stark', price: 4000, name: 'Arya', address: 'Hanoi', description: "description goes here" },
-                { id: 5, catalogName: 'Targaryen', price: 4000, name: 'Daenerys', address: 'Hanoi', description: "description goes here" },
-                { id: 6, catalogName: 'Melisandre', price: 4000, name: 'Daenerys', address: 'Hanoi', description: "description goes here" },
-                { id: 7, catalogName: 'Clifford', price: 4000, name: 'Ferrara', address: 'Hanoi', description: "description goes here" },
-                { id: 8, catalogName: 'Frances', price: 4000, name: 'Rossini', address: 'Hanoi', description: "description goes here" },
-                { id: 9, catalogName: 'Roxie', price: 4000, name: 'Harvey', address: 'Hanoi', description: "description goes here" },
-            ],
+            rows: [],
             currentData: null
         }
-        this.handleEditOnClick = this.handleEditOnClick.bind(this);
+        this.handleToggleDialogAdd = this.handleToggleDialogAdd.bind(this);
         this.handleEditClose = this.handleEditClose.bind(this);
         this.getIndex = this.getIndex.bind(this);
+        this.getHomeStaysList = this.getHomeStaysList.bind(this);
+        this.addNewHomeStay = this.addNewHomeStay.bind(this);
+        this.handleToggleDialogDelete = this.handleToggleDialogDelete.bind(this);
+    }
+
+    async getHomeStaysList() {
+        const homeStayList = await getHomeStay();
+        this.setState({
+            rows: homeStayList.data.map((item) => ({ ...item, id: item._id }))
+        })
+    }
+
+    async addNewHomeStay(data) {
+        const result = await addHomeStay(data);
+        this.handleToggleDialogAdd();
+        this.getHomeStaysList();
+    }
+
+    componentDidMount() {
+        this.getHomeStaysList();
     }
 
     getIndex(id) {
@@ -99,13 +111,16 @@ class Homestays extends Component {
         }
     }
 
-    handleEditOnClick(e) {
-        console.log(e.target.value)
-        this.setState({
-            dialogOpen: true,
-            currentData: this.getIndex(e.target.value)
-        });
+    handleToggleDialogAdd() {
+        this.setState((currentState) => ({
+            isOpenDialogAdd: !currentState.isOpenDialogAdd
+        }));
+    }
 
+    handleToggleDialogDelete() {
+        this.setState((currentState) => ({
+            isOpenDialogDelete: !currentState.isOpenDialogDelete
+        }));
     }
 
     handleEditClose() {
@@ -114,54 +129,16 @@ class Homestays extends Component {
         })
     }
     render() {
-        const { dialogOpen, columns, rows, currentData } = this.state;
+        const { dialogOpen, columns, rows, currentData, isOpenDialogAdd, handleToggleDialogDelete } = this.state;
         return <div className="admin-homestays" style={{ width: '100%' }}>
-            <Dialog open={dialogOpen} onClose={this.handleEditClose} >
-                <DialogTitle id="form-dialog-title">Edit Homestays</DialogTitle>
-                <DialogContent>
-                    <div>
-                        <DialogContentText>
-                            Homestay_ID
-                    </DialogContentText>
-                        <input type="text" defaultValue={rows[currentData] ? rows[currentData].id : ""} />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Catalog Name
-                        </DialogContentText>
-                        <input type="text" />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Price
-                        </DialogContentText>
-                        <input type="number" defaultValue={rows[currentData] ? rows[currentData].price : ""} />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Name
-                        </DialogContentText>
-                        <input type="text" defaultValue={rows[currentData] ? rows[currentData].name : ""} />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Address
-                        </DialogContentText>
-                        <input type="text" defaultValue={rows[currentData] ? rows[currentData].address : ""} />
-                    </div>
-                    <div className="full-size">
-                        <DialogContentText>
-                            Description
-                        </DialogContentText>
-                        <textarea defaultValue={rows[currentData] ? rows[currentData].description : ""}></textarea>
-                    </div>
-                    <DialogActions>
-                        <button className="action-btn" id="save-btn">Save</button>
-                        <button className="action-btn" id="close-btn" onClick={this.handleEditClose}>Close</button>
-                    </DialogActions>
-                </DialogContent>
-
-            </Dialog>
+            {
+                isOpenDialogAdd && <AddHomestayDialog 
+                    open={isOpenDialogAdd} 
+                    handleToggleDialogAdd={this.handleToggleDialogAdd}
+                    addNewHomeStay ={this.addNewHomeStay}
+                    handleToggleDialogDelete={this.handleToggleDialogDelete}
+                />
+            }
             <Sidebar />
             <div className="main-view">
                 <Navbar />
@@ -170,17 +147,23 @@ class Homestays extends Component {
                         <h4 className="welcome-header">Hi, Welcome back!</h4>
                         <h4>All Homestays</h4>
                     </div>
-                    <div>
-                        <i class="fas fa-plus-circle"></i>
+                    <div onClick={this.handleToggleDialogAdd}>
+                        <i className="fas fa-plus-circle"></i>
                     </div>
                 </header>
                 <section id="homestays-statistic">
-                    <DataGrid className="datagrid" sortingOrder={['desc', 'asc', null]}
-                        rows={rows} columns={columns} pageSize={10}
-                        autoHeight disableColumnMenu={true}
+                    <DataGrid
+                        className="datagrid"
+                        sortingOrder={['desc', 'asc', null]}
+                        rows={rows}
+                        columns={columns}
+                        pageSize={10}
+                        autoHeight
+                        disableColumnMenu={true}
                         disableColumnSelector={true}
                         disableSelectionOnClick={true}
-                        style={{ border: '1px solid black' }} />
+                        style={{ border: '1px solid black' }}
+                    />
                 </section>
             </div>
         </div>

@@ -16,6 +16,7 @@ import AdminLogin from './admin-components/login/AdminLogin'
 import './Homestay.css'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
+
 class Homestay extends Component {
     constructor(props) {
         super(props);
@@ -42,7 +43,6 @@ class Homestay extends Component {
     }
 
     componentDidMount() {
-        console.log("homestay")
         const userid = this.getCookie("uid");
         const username = this.getCookie("username");
         const admin = this.getCookie("admin");
