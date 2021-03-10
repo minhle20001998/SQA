@@ -15,6 +15,7 @@ import ProtectedAdminRoute from './admin-components/ProtectedAdminRoute'
 import AdminLogin from './admin-components/login/AdminLogin'
 import './Homestay.css'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Users from './admin-components/users/Users';
 
 
 class Homestay extends Component {
@@ -121,6 +122,9 @@ class Homestay extends Component {
                     </ProtectedAdminRoute>
                     <ProtectedAdminRoute isLogin={isLoginAdmin} exact path="/admin/homestays">
                         <Homestays />
+                    </ProtectedAdminRoute>
+                    <ProtectedAdminRoute isLogin={isLoginAdmin} exact path="/admin/users">
+                        <Users />
                     </ProtectedAdminRoute>
                 </Switch>
             </Router>
