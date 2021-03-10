@@ -47,9 +47,9 @@ class Sidebar extends Component {
                     <i className="fas fa-house-user"></i>
                     <p className="title">Homestays</p>
                 </Link>
-                <Link className="staff-components" to="">
+                <Link className={"homestays-components" + (currentSelected === "/admin/users" ? " selected" : "")} to="/admin/users">
                     <i className="fas fa-user-friends"></i>
-                    <p className="title">Staff</p>
+                    <p className="title">Users</p>
                 </Link>
             </div>
         </div>

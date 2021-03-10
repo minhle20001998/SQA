@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Navbar from '../navbar/Navbar'
 import Sidebar from '../sidebar/Sidebar'
+import { getBooking } from '../../utils/requestAPI/index';
 import './Booking.css'
 
 
@@ -25,37 +26,47 @@ class Booking extends Component {
                 description: ""
             },
             columns: [
-                { field: 'id', headerName: 'Homestay_ID', width: 120 },
-                { field: 'catalogName', headerName: 'Catalog name', width: 130 },
-                { field: 'price', headerName: 'Price', width: 100 },
                 {
-                    field: 'name',
-                    headerName: 'Name',
-                    width: 150,
+                    field: 'id',
+                    headerName: 'ID',
+                    width: 200,
                 },
                 {
-                    field: 'address',
-                    headerName: 'Address',
-                    width: 150,
+                    field: 'homestay_id',
+                    headerName: 'homestay_id',
+                    width: 200,
                 },
                 {
-                    field: 'description',
-                    headerName: 'Description',
+                    field: 'homestay_name',
+                    headerName: 'homestay_name',
                     description: '',
                     sortable: false,
                     width: 200,
 
                 },
                 {
-                    field: "Edit",
-                    width: 60,
+                    field: 'user_id',
+                    headerName: 'user_id',
+                    description: '',
                     sortable: false,
-                    renderCell: (params) => (
-                        <button className="table-buttons green-btn" id='edit' value={params.getValue('id')}
-                            onClick={this.handleEditOnClick}>
-                            Edit
-                        </button>
-                    )
+                    width: 200,
+
+                },
+                {
+                    field: 'payment',
+                    headerName: 'payment',
+                    description: '',
+                    sortable: false,
+                    width: 200,
+
+                },
+                {
+                    field: 'amount',
+                    headerName: 'amount',
+                    description: '',
+                    sortable: false,
+                    width: 200,
+
                 },
                 {
                     field: "Delete",
@@ -73,21 +84,36 @@ class Booking extends Component {
 
             ],
             rows: [
-                { id: 1, catalogName: 'Snow', price: 4000, name: 'Jon', address: 'Hanoi', description: "description goes here" },
-                { id: 2, catalogName: 'Lannister', price: 4000, name: 'Cersei', address: 'Hanoi', description: "description goes here" },
-                { id: 3, catalogName: 'Lannister', price: 4000, name: 'Jaime', address: 'Hanoi', description: "description goes here" },
-                { id: 4, catalogName: 'Stark', price: 4000, name: 'Arya', address: 'Hanoi', description: "description goes here" },
-                { id: 5, catalogName: 'Targaryen', price: 4000, name: 'Daenerys', address: 'Hanoi', description: "description goes here" },
-                { id: 6, catalogName: 'Melisandre', price: 4000, name: 'Daenerys', address: 'Hanoi', description: "description goes here" },
-                { id: 7, catalogName: 'Clifford', price: 4000, name: 'Ferrara', address: 'Hanoi', description: "description goes here" },
-                { id: 8, catalogName: 'Frances', price: 4000, name: 'Rossini', address: 'Hanoi', description: "description goes here" },
-                { id: 9, catalogName: 'Roxie', price: 4000, name: 'Harvey', address: 'Hanoi', description: "description goes here" },
+                // { id: 1, catalogName: 'Snow', price: 4000, name: 'Jon', address: 'Hanoi', description: "description goes here" },
+                // { id: 2, catalogName: 'Lannister', price: 4000, name: 'Cersei', address: 'Hanoi', description: "description goes here" },
+                // { id: 3, catalogName: 'Lannister', price: 4000, name: 'Jaime', address: 'Hanoi', description: "description goes here" },
+                // { id: 4, catalogName: 'Stark', price: 4000, name: 'Arya', address: 'Hanoi', description: "description goes here" },
+                // { id: 5, catalogName: 'Targaryen', price: 4000, name: 'Daenerys', address: 'Hanoi', description: "description goes here" },
+                // { id: 6, catalogName: 'Melisandre', price: 4000, name: 'Daenerys', address: 'Hanoi', description: "description goes here" },
+                // { id: 7, catalogName: 'Clifford', price: 4000, name: 'Ferrara', address: 'Hanoi', description: "description goes here" },
+                // { id: 8, catalogName: 'Frances', price: 4000, name: 'Rossini', address: 'Hanoi', description: "description goes here" },
+                // { id: 9, catalogName: 'Roxie', price: 4000, name: 'Harvey', address: 'Hanoi', description: "description goes here" },
             ],
             currentData: null
         }
         this.handleEditOnClick = this.handleEditOnClick.bind(this);
         this.handleEditClose = this.handleEditClose.bind(this);
         this.getIndex = this.getIndex.bind(this);
+        this.getBookingList = this.getBookingList.bind(this);
+    }
+
+    async getBookingList() {
+        const homeStayList = await getBooking();
+        this.setState({
+            rows: homeStayList.data.map((item) => ({
+                ...item,
+                id: item._id
+            }))
+        })
+    }
+
+    componentDidMount() {
+        this.getBookingList();
     }
 
     getIndex(id) {
@@ -170,9 +196,9 @@ class Booking extends Component {
                         <h4 className="welcome-header">Hi, Welcome back!</h4>
                         <h4>All Booking</h4>
                     </div>
-                    <div>
+                    {/* <div>
                         <i className="fas fa-plus-circle"></i>
-                    </div>
+                    </div> */}
                 </header>
                 <section id="booking-statistic">
                     <DataGrid className="datagrid" sortingOrder={['desc', 'asc', null]}

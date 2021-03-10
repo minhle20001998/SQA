@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
 import { DataGrid } from '@material-ui/data-grid';
-import Dialog from '@material-ui/core/Dialog';
-import Container from '@material-ui/core/Container';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Navbar from '../navbar/Navbar'
 import Sidebar from '../sidebar/Sidebar'
 import './Homestays.css'
