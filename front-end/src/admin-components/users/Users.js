@@ -149,52 +149,6 @@ class Users extends Component {
   render() {
     const { columns, rows, isOpenDialogAdd } = this.state;
     return <div className="admin-booking" style={{ width: '100%' }}>
-      {/* <Dialog open={dialogOpen} onClose={this.handleEditClose} >
-                <DialogTitle id="form-dialog-title">Edit Booking</DialogTitle>
-                <DialogContent>
-                    <div>
-                        <DialogContentText>
-                            Homestay_ID
-                    </DialogContentText>
-                        <input type="text" defaultValue={rows[currentData] ? rows[currentData].id : ""} />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Catalog Name
-                        </DialogContentText>
-                        <input type="text" />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Price
-                        </DialogContentText>
-                        <input type="number" defaultValue={rows[currentData] ? rows[currentData].price : ""} />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Name
-                        </DialogContentText>
-                        <input type="text" defaultValue={rows[currentData] ? rows[currentData].name : ""} />
-                    </div>
-                    <div>
-                        <DialogContentText>
-                            Address
-                        </DialogContentText>
-                        <input type="text" defaultValue={rows[currentData] ? rows[currentData].address : ""} />
-                    </div>
-                    <div className="full-size">
-                        <DialogContentText>
-                            Description
-                        </DialogContentText>
-                        <textarea defaultValue={rows[currentData] ? rows[currentData].description : ""}></textarea>
-                    </div>
-                    <DialogActions>
-                        <button className="action-btn" id="save-btn">Save</button>
-                        <button className="action-btn" id="close-btn" onClick={this.handleEditClose}>Close</button>
-                    </DialogActions>
-                </DialogContent>
-
-            </Dialog> */}
       {
         isOpenDialogAdd && <AddUserDialog open={isOpenDialogAdd} addNewUser={this.addNewUser} />
       }
@@ -204,7 +158,7 @@ class Users extends Component {
         <header>
           <div>
             <h4 className="welcome-header">Hi, Welcome back!</h4>
-            <h4>All Booking</h4>
+            <h4>All Users</h4>
           </div>
           <div onClick={this.handleToggleDialogAdd}>
             <i className="fas fa-plus-circle"></i>

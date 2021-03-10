@@ -126,10 +126,10 @@ class Homestays extends Component {
         const { dialogOpen, columns, rows, currentData, isOpenDialogAdd, handleToggleDialogDelete } = this.state;
         return <div className="admin-homestays" style={{ width: '100%' }}>
             {
-                isOpenDialogAdd && <AddHomestayDialog 
-                    open={isOpenDialogAdd} 
+                isOpenDialogAdd && <AddHomestayDialog
+                    open={isOpenDialogAdd}
                     handleToggleDialogAdd={this.handleToggleDialogAdd}
-                    addNewHomeStay ={this.addNewHomeStay}
+                    addNewHomeStay={this.addNewHomeStay}
                     handleToggleDialogDelete={this.handleToggleDialogDelete}
                 />
             }
