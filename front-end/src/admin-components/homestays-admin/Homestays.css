@@ -37,3 +37,15 @@
   justify-content: space-between;
   padding: 0 20px;
 }
+
+.MuiTablePagination-actions button {
+  outline: none;
+}
+
+.MuiTablePagination-actions button:hover {
+  background-color: rgb(223, 223, 223);
+}
+
+.MuiTablePagination-actions button span {
+  color: black !important;
+}

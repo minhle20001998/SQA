@@ -62,10 +62,10 @@ class Login extends Component {
             this.createCookie("uid", `${data._id}`, 100);
 
             this.deleteCookie("admin");
+
             this.props.setStateLogin(true, () => {
                 this.props.history.push('/');
             });
-
         }
     }
 

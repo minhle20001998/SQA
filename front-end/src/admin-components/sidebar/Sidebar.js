@@ -9,18 +9,27 @@ class Sidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: "",
             currentSelected: ""
         }
     }
 
+    getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
     componentDidMount() {
+        const username = this.getCookie("username");
         this.setState({
+            username: username,
             currentSelected: window.location.pathname
         })
     }
 
     render() {
-        const { currentSelected } = this.state;
+        const { currentSelected, username } = this.state;
         return <div className="sidebar">
             <a className="logo-admin">
                 <img src={source} alt="logo" />
@@ -30,8 +39,8 @@ class Sidebar extends Component {
                 <img src={source} alt="avatar" />
             </div>
             <div className="admin-info">
-                <p className="admin-name">Minh</p>
-                <p className="position">Manager</p>
+                <p className="admin-name">{username}</p>
+                <p className="position" style={{color:"#aeffc1"}}>Manager</p>
             </div>
             <div className="main-components ">
                 <p className="header-text"> --main</p>
@@ -47,9 +56,9 @@ class Sidebar extends Component {
                     <i className="fas fa-house-user"></i>
                     <p className="title">Homestays</p>
                 </Link>
-                <Link className="staff-components" to="">
+                <Link className={"homestays-components" + (currentSelected === "/admin/users" ? " selected" : "")} to="/admin/users">
                     <i className="fas fa-user-friends"></i>
-                    <p className="title">Staff</p>
+                    <p className="title">Users</p>
                 </Link>
             </div>
         </div>

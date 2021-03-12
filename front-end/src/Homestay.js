@@ -8,6 +8,9 @@ import Homestays from './admin-components/homestays-admin/Homestays'
 import ProtectedRoute from './components/ProtectedRoute'
 import UnAuthenRoute from './components/UnAuthenRoute'
 import HomestayDetail from './components/HomestayDetail/HomestayDetail'
+import Journey from './components/Journey/Journey'
+import Destination from './components/Destination/Destination'
+import Image from './components/Image/Image'
 import logo from './images/logo.png'
 import Register from './components/Register/Register'
 import UserHistory from './components/UserHistory/UserHistory'
@@ -15,6 +18,8 @@ import ProtectedAdminRoute from './admin-components/ProtectedAdminRoute'
 import AdminLogin from './admin-components/login/AdminLogin'
 import './Homestay.css'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Users from './admin-components/users/Users';
+
 
 class Homestay extends Component {
     constructor(props) {
@@ -42,7 +47,6 @@ class Homestay extends Component {
     }
 
     componentDidMount() {
-        console.log("homestay")
         const userid = this.getCookie("uid");
         const username = this.getCookie("username");
         const admin = this.getCookie("admin");
@@ -64,17 +68,16 @@ class Homestay extends Component {
         if (userid && admin == "true") {
             this.setState({
                 uid: userid,
-                isLoginAdmin: true
+                isLoginAdmin: true,
+                completed: true,
             })
         } else if (!userid && admin == "true") {
             this.setState({
                 isLoginAdmin: false,
+                completed: true,
             })
         }
-
     }
-
-
 
     getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -95,6 +98,15 @@ class Homestay extends Component {
                     </Route>
                     <Route isLogin={isLogin} exact path="/homestay/:id">
                         {completed ? <HomestayDetail logo={logo} isLogin={isLogin} /> : <></>}
+                    </Route>
+                    <Route isLogin={isLogin} exact path="/destination">
+                        <Destination logo={logo} isLogin={isLogin} />
+                    </Route>
+                    <Route isLogin={isLogin} exact path="/image">
+                        <Image logo={logo} isLogin={isLogin} />
+                    </Route>
+                    <Route isLogin={isLogin} exact path="/journey">
+                        <Journey logo={logo} isLogin={isLogin} />
                     </Route>
                     <UnAuthenRoute isLogin={isLogin} exact path="/login">
                         <Login logo={logo} setStateLogin={this.setStateLogin} />
@@ -117,14 +129,20 @@ class Homestay extends Component {
                         <AdminHomepage />
                     </ProtectedAdminRoute>
                     <ProtectedAdminRoute isLogin={isLoginAdmin} exact path="/admin/booking">
-                        <AdminBooking />
+                        {completed ?
+                            <AdminBooking /> : <></>
+                        }
                     </ProtectedAdminRoute>
                     <ProtectedAdminRoute isLogin={isLoginAdmin} exact path="/admin/homestays">
                         <Homestays />
+                    </ProtectedAdminRoute>
+                    <ProtectedAdminRoute isLogin={isLoginAdmin} exact path="/admin/users">
+                        <Users />
                     </ProtectedAdminRoute>
                 </Switch>
             </Router>
         </div>
     }
 }
+
 export default Homestay;

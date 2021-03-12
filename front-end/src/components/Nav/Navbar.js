@@ -54,7 +54,8 @@ class Navbar extends Component {
                     {links.map(link =>
                         <li key={link.name + "-li"}>
                             <Link className={(link.name === current) ? "underline" : ""} id={(link.name).replace(" ", "-") + "-link"} to={link.link}>{link.name}</Link>
-                        </li>)}
+                        </li>)
+                    }
                 </ul>
             </div>
             {isLogin ? <div className="user-area">

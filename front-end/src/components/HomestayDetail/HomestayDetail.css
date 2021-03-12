@@ -53,7 +53,7 @@
 .fa,
 .fas,
 .far {
-  color: #000000;
+  color: rgb(43, 43, 43);
   font-size: 40px;
   margin: 0px 5px 0 3px;
 }
@@ -248,7 +248,7 @@
 
 .right-content {
   padding-top: 10px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 /*body stype*/
 
@@ -284,4 +284,43 @@
   margin-bottom: 10px !important;
 
   font-size: 13px;
+}
+
+#bill .MuiDialog-paperWidthSm {
+  width: 350px;
+}
+
+#bill {
+  height: fit-content;
+}
+
+#bill h2 {
+  text-align: center;
+}
+
+#bill-form {
+  display: flex;
+  flex-direction: column !important;
+}
+
+#bill-form > div {
+  margin: 5px;
+}
+
+#bill-form input {
+  width: 100px;
+}
+
+#price {
+  color: rgb(255, 60, 60);
+}
+
+#bill-form .MuiTypography-root {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#bill-form .MuiDialogActions-root {
+  display: block;
+  padding: 20px 0 20px 0;
 }

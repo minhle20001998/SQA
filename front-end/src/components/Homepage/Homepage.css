@@ -117,7 +117,7 @@ section {
 
 .homestay-address,
 .homestay-price {
-  text-align: justify;
+  text-align: start;
 }
 
 .homestay-name {

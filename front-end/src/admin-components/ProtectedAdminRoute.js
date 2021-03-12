@@ -3,10 +3,12 @@ import { BrowserRouter as Router, withRouter, Link, Route, Redirect } from 'reac
 
 class ProtectedAdminRoute extends Component {
     render() {
+
         const { isLogin, path, children, exact } = this.props;
+        console.log(isLogin)
         console.log("admin protected ", this.props)
         return <Route exact={exact} to={path}>
-            {isLogin ? children : <Redirect push to="admin/login" />}
+            {isLogin ? children : <Redirect push to="/admin/login" />}
         </Route>
     }
 }
