@@ -14,9 +14,11 @@ class DeleteHomestayDialog extends Component {
     }
 
     handeDelete() {
-        // const { addNewHomeStay } = this.props;
-        // addNewHomeStay(this.state.form)
-        console.log('Delete')
+        const { deleteHomeStay, selectedItem } = this.props;
+        const { _id } = selectedItem;
+        deleteHomeStay({
+            _id: _id
+        });
     }
 
     render() {
@@ -29,11 +31,10 @@ class DeleteHomestayDialog extends Component {
                         <DialogContentText>
                             Do you want to delete this homestay?
                         </DialogContentText>
-                        <input name="catalog_name" type="text" onChange={this.handleChangeInput} />
                     </div>
                     <DialogActions>
                         <button className="action-btn" id="save-btn" onClick={this.handeDelete}>Delete</button>
-                        <button className="action-btn" id="close-btn" onClick={handleToggleDialogDelete} >Cancel</button>
+                        <button className="action-btn" id="close-btn" onClick={() => handleToggleDialogDelete()} >Cancel</button>
                     </DialogActions>
                 </DialogContent>
             </Dialog>
