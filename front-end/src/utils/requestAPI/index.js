@@ -70,3 +70,21 @@ export const editUser = async (data) => {
     });
     return response;
 }
+
+export const deleteUser = async (data) => {
+    const url = 'https://sqa-api.herokuapp.com/user';
+    const response = await requestAPI(url, {
+        method: 'delete',
+        data: data
+    });
+    return response;
+}
+
+export const deleteBooking = async (data) => {
+    const url = 'https://sqa-api.herokuapp.com/transaction';
+    const response = await requestAPI(url, {
+        method: 'delete',
+        data: data
+    });
+    return response;
+}

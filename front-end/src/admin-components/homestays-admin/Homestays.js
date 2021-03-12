@@ -155,13 +155,11 @@ class Homestays extends Component {
                     open={isOpenDialogAdd}
                     handleToggleDialogAdd={this.handleToggleDialogAdd}
                     addNewHomeStay={this.addNewHomeStay}
-                    handleToggleDialogDelete={this.handleToggleDialogDelete}
                 />
             }
             {
                 isOpenDialogEdit && selectedItem && <EditHomestayDialog
                     open={isOpenDialogEdit}
-                    handleToggleDialogAdd={this.handleToggleDialogAdd}
                     handleToggleDialogEdit={this.handleToggleDialogEdit}
                     selectedItem={selectedItem}
                     editHomeStay={this.editHomeStay}
