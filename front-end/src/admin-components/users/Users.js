@@ -70,19 +70,19 @@ class Users extends Component {
           width: 200,
 
         },
-        {
-          field: "Edit",
-          width: 100,
-          sortable: false,
-          renderCell: (params) => {
-            const { row } = params;
-            return (
-              <Button variant="contained" color="primary" onClick={() => this.handleToggleDialogEdit(row)} >
-                Edit
-              </Button>
-            )
-          }
-        },
+        // {
+        //   field: "Edit",
+        //   width: 100,
+        //   sortable: false,
+        //   renderCell: (params) => {
+        //     const { row } = params;
+        //     return (
+        //       <Button variant="contained" color="primary" onClick={() => this.handleToggleDialogEdit(row)} >
+        //         Edit
+        //       </Button>
+        //     )
+        //   }
+        // },
         {
           field: "Delete",
           width: 100,
