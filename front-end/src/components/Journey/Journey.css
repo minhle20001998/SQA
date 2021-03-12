@@ -1,10 +1,17 @@
 .head-div {
+  width: 20%;
+  min-width: 400px;
   display: flex;
-  padding: 80px 40px 0 40px;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 .journey {
   background-color: rgb(245, 245, 245);
+}
+
+.journey main {
+  display: flex;
 }
 
 .journey p {
@@ -13,9 +20,12 @@
 }
 
 .journey header {
+  position: fixed;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  width: 800px;
+  width: 350px;
+  height: fit-content;
   box-shadow: 1px 1px 5px rgb(158, 158, 158);
   padding-bottom: 25px;
 }
@@ -146,10 +156,11 @@
 }
 
 #broad-news {
-  padding: 80px 40px 0 40px;
+  padding: 0px 40px 0 40px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  z-index: 99;
 }
 
 #broad-news .broad {
